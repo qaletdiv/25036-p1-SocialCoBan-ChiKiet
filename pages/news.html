@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin tức – Kircle</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/themes.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components/logo.css">
+    <link rel="stylesheet" href="../css/components/button.css">
+    <link rel="stylesheet" href="../css/components/card.css">
+    <link rel="stylesheet" href="../css/components/form.css">
+    <link rel="stylesheet" href="../css/components/post.css">
+    <link rel="stylesheet" href="../css/components/table.css">
+    <script src="../js/theme.js"></script>
+    <script src="../js/sidebar.js"></script>
+</head>
+<body class="kircle-app">
+    <header class="kircle-header">
+        <div class="kircle-header-inner">
+            <button type="button" class="kircle-sidebar-toggle" id="sidebar-toggle" aria-label="Mở menu điều hướng" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+            <a href="news.html" class="kircle-logo-link kircle-header-logo" aria-label="Kircle">
+                <svg class="kircle-header-logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="kircleHeaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color: #a29bfe; stop-opacity: 1" />
+                            <stop offset="100%" style="stop-color: #6c5ce7; stop-opacity: 1" />
+                        </linearGradient>
+                    </defs>
+                    <g transform="translate(10, 10)">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="2" opacity="0.25" />
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="url(#kircleHeaderGrad)" stroke-width="10" stroke-linecap="round" stroke-dasharray="210 100" />
+                        <path d="M42 35 L42 65 M42 50 L58 35 M42 50 L58 65" stroke="url(#kircleHeaderGrad)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                    </g>
+                </svg>
+            </a>
+            <button
+                type="button"
+                class="kircle-header-icon-btn kircle-header-search-toggle"
+                id="mobile-search-toggle"
+                aria-label="Tìm kiếm"
+            >
+                <span class="kircle-header-search-toggle-icon-search" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <line x1="16" y1="16" x2="21" y2="21"></line>
+                    </svg>
+                </span>
+                <span class="kircle-header-search-toggle-icon-close" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </span>
+            </button>
+            <div class="kircle-header-search">
+                <input
+                    type="search"
+                    id="feed-search"
+                    class="kircle-input"
+                    placeholder="Tìm kiếm..."
+                    style="width: 100%; font-size: 0.875rem; padding: 0.35rem 0.5rem;"
+                >
+            </div>
+            <div class="kircle-header-actions">
+                <button type="button" class="kircle-header-icon-btn kircle-theme-toggle" id="theme-toggle" aria-label="Đổi giao diện sáng/tối">
+                    <span class="kircle-theme-icon kircle-theme-icon-sun" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                    </span>
+                    <span class="kircle-theme-icon kircle-theme-icon-moon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    </span>
+                </button>
+                <button type="button" class="kircle-header-icon-btn kircle-header-notif" id="notif-link" aria-label="Thông báo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span
+                        id="notif-badge"
+                        class="kircle-badge kircle-badge-pending kircle-header-notif-badge"
+                        style="display: none;"
+                    ></span>
+                </button>
+                <div class="kircle-dropdown-wrap">
+                    <button type="button" class="kircle-dropdown-trigger" id="user-menu-btn" aria-expanded="false" aria-haspopup="true">
+                        <img src="" alt="" class="kircle-header-avatar" id="header-avatar" width="36" height="36" style="background: var(--surface-2);">
+                        <span id="header-username"></span>
+                    </button>
+                    <div class="kircle-dropdown-menu" id="user-menu" role="menu">
+                        <a href="#" role="menuitem">Hồ sơ</a>
+                        <a href="#" role="menuitem">Cài đặt</a>
+                        <a href="../index.html" role="menuitem">Về trang chủ</a>
+                        <button type="button" id="logout-btn" role="menuitem">Đăng xuất</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="kircle-sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+    <div class="kircle-main-wrap">
+        <aside class="kircle-sidebar" id="sidebar" aria-label="Điều hướng">
+            <nav class="kircle-sidebar-nav">
+                <a href="news.html" class="is-active">Bảng feed</a>
+                <a href="#">Hồ sơ</a>
+                <a href="#">Tin nhắn</a>
+                <a href="#">Thông báo</a>
+            </nav>
+        </aside>
+        <main class="kircle-main">
+            <div class="kircle-composer kircle-card" style="margin-bottom: 1rem;">
+                <img src="" alt="" class="kircle-composer-avatar" id="composer-avatar" width="40" height="40" style="background: var(--surface-2);">
+                <div class="kircle-composer-input-wrap">
+                    <textarea class="kircle-composer-input" id="composer-input" placeholder="Bạn đang nghĩ gì?" rows="2"></textarea>
+                    <div class="kircle-composer-img-row">
+                        <svg class="kircle-composer-img-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        <input type="text" id="composer-image-url" class="kircle-composer-img-input" placeholder="Dán đường dẫn ảnh (không bắt buộc)..." autocomplete="off" spellcheck="false">
+                        <button type="button" class="kircle-composer-img-clear" id="composer-image-clear" aria-label="Xóa link ảnh" style="display:none;">×</button>
+                    </div>
+                    <div class="kircle-composer-preview" id="composer-preview" style="display:none;">
+                        <img id="composer-preview-img" src="" alt="Preview">
+                    </div>
+                    <div class="kircle-composer-options">
+                        <span class="kircle-composer-privacy">
+                            Quyền riêng tư:
+                            <select id="composer-privacy" class="kircle-select" style="width: auto; display: inline-block; padding: 0.2rem 0.5rem;">
+                                <option value="public">Công khai</option>
+                                <option value="followers">Chỉ người theo dõi</option>
+                                <option value="private">Chỉ mình tôi</option>
+                            </select>
+                        </span>
+                        <button type="button" class="kircle-btn kircle-btn-primary kircle-btn-sm kircle-composer-submit" id="composer-submit">Đăng</button>
+                    </div>
+                </div>
+            </div>
+            <div id="feed-list"></div>
+        </main>
+    </div>
+    <script src="../js/db.js"></script>
+    <script src="../js/mock/users.js"></script>
+    <script src="../js/mock/posts.js"></script>
+    <script src="../js/mock/comments.js"></script>
+    <script src="../js/mock/notifications.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/router-utils.js"></script>
+    <script src="../js/news-page.js"></script>
+</body>
+</html>

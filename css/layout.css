@@ -1,0 +1,365 @@
+.kircle-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.kircle-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+}
+
+.kircle-header-inner {
+  width: min(100% - 2rem, var(--container-max));
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: nowrap;
+}
+
+.kircle-logo-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-strong);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.kircle-logo-link:hover {
+  color: var(--primary);
+}
+
+.kircle-header-logo {
+  color: var(--text-strong);
+}
+
+.kircle-header-logo:hover {
+  color: var(--primary);
+}
+
+.kircle-header-logo-svg {
+  display: block;
+  width: 36px;
+  height: 36px;
+}
+
+.kircle-header-search {
+  flex: 1;
+  min-width: 120px;
+  max-width: 280px;
+}
+
+.kircle-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.kircle-header-icon-btn,
+.kircle-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.kircle-header-icon-btn:hover,
+.kircle-theme-toggle:hover {
+  background: var(--surface-2);
+  color: var(--primary);
+}
+
+.kircle-header-icon-btn svg,
+.kircle-theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.kircle-theme-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+}
+
+.kircle-theme-icon-sun {
+  display: inline-flex;
+}
+
+.kircle-theme-icon-moon {
+  display: none;
+}
+
+[data-theme="dark"] .kircle-theme-icon-sun {
+  display: none;
+}
+
+[data-theme="dark"] .kircle-theme-icon-moon {
+  display: inline-flex;
+}
+
+.kircle-header-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--surface-2);
+}
+
+.kircle-dropdown-wrap {
+  position: relative;
+}
+
+.kircle-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.kircle-dropdown-trigger:hover {
+  background: var(--surface-2);
+}
+
+.kircle-header-notif {
+  position: relative;
+}
+
+.kircle-header-notif-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  transform: translate(50%, -50%);
+  min-width: 16px;
+  height: 16px;
+  padding-inline: 3px;
+  border-radius: 999px;
+  font-size: 0.625rem;
+}
+
+.kircle-header-search-toggle {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .kircle-header-inner {
+    gap: 0.5rem;
+  }
+
+  .kircle-header-search {
+    display: none;
+    max-width: none;
+  }
+
+  .kircle-header-search-toggle {
+    display: inline-flex;
+  }
+
+  body.kircle-search-open .kircle-header-search {
+    display: block;
+    flex: 1 1 auto;
+  }
+
+  body.kircle-search-open .kircle-header-actions {
+    display: none;
+  }
+
+  .kircle-header-search-toggle-icon-close {
+    display: none;
+  }
+
+  body.kircle-search-open .kircle-header-search-toggle-icon-search {
+    display: none;
+  }
+
+  body.kircle-search-open .kircle-header-search-toggle-icon-close {
+    display: inline-flex;
+  }
+}
+
+.kircle-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.25rem;
+  min-width: 160px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  padding: 0.25rem;
+  display: none;
+  z-index: 200;
+}
+
+.kircle-dropdown-menu.is-open {
+  display: block;
+}
+
+.kircle-dropdown-menu a,
+.kircle-dropdown-menu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  background: none;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font: inherit;
+}
+
+.kircle-dropdown-menu a:hover,
+.kircle-dropdown-menu button:hover {
+  background: var(--surface-2);
+}
+
+.kircle-main-wrap {
+  display: flex;
+  flex: 1;
+  width: min(100%, var(--container-max));
+  margin-inline: auto;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.kircle-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  position: sticky;
+  align-self: flex-start;
+  top: 5rem;
+  max-height: calc(100vh - 5rem - 1rem);
+  overflow-y: auto;
+}
+
+.kircle-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.kircle-sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.kircle-sidebar-nav a:hover {
+  background: var(--surface-2);
+  color: var(--primary);
+}
+
+.kircle-sidebar-nav a.is-active {
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.kircle-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.kircle-sidebar-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  cursor: pointer;
+}
+.kircle-sidebar-toggle:hover {
+  background: var(--surface-2);
+  color: var(--primary);
+}
+.kircle-sidebar-toggle svg {
+  width: 24px;
+  height: 24px;
+}
+
+.kircle-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: var(--overlay, rgba(0, 0, 0, 0.4));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.kircle-sidebar-overlay.is-visible {
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .kircle-sidebar-toggle {
+    display: inline-flex;
+  }
+
+  .kircle-sidebar-overlay {
+    display: block;
+    pointer-events: none;
+  }
+  .kircle-sidebar-overlay.is-visible {
+    pointer-events: auto;
+  }
+
+  .kircle-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 160;
+    width: 260px;
+    max-width: 85vw;
+    max-height: none;
+    padding: 1rem;
+    padding-top: 5rem;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    box-shadow: 4px 0 20px var(--shadow-color);
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    overflow-y: auto;
+  }
+
+  .kircle-app.kircle-sidebar-open .kircle-sidebar {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .kircle-main-wrap {
+    flex-direction: column;
+  }
+}

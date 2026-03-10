@@ -1,0 +1,18 @@
+.kircle-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+.kircle-card-body {
+  padding: 1rem 1.25rem;
+}
+
+.kircle-card-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-strong);
+}

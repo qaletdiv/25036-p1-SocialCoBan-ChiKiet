@@ -1,0 +1,26 @@
+#kircle-svg {
+  width: 25rem;
+  height: 7.5rem;
+  cursor: pointer;
+}
+
+.k-path {
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+#kircle-svg:hover .main-circle {
+  filter: url(#glow);
+}
+
+.brand-name {
+  fill: var(--text-strong);
+  transition: fill 0.3s ease;
+}
+
+#kircle-svg:hover .brand-name {
+  fill: var(--primary-hover);
+}
+
+.brand-tagline {
+  fill: var(--text-muted);
+}

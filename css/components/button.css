@@ -1,0 +1,70 @@
+.kircle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+}
+
+.kircle-btn:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.kircle-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.kircle-btn-primary {
+  background: var(--primary);
+  color: var(--on-primary);
+  border: 1px solid transparent;
+}
+
+.kircle-btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.kircle-btn-primary:active:not(:disabled) {
+  background: var(--primary-active);
+}
+
+.kircle-btn-secondary {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.kircle-btn-secondary:hover:not(:disabled) {
+  background: var(--surface-3);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.kircle-btn-ghost {
+  background: transparent;
+  color: var(--text);
+}
+
+.kircle-btn-ghost:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+.kircle-btn-sm {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.kircle-btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
