@@ -12,3 +12,266 @@
   background: var(--primary-soft);
   color: var(--primary);
 }
+
+.kircle-badge-active {
+  background: rgba(22, 163, 74, 0.12);
+  color: #16a34a;
+}
+
+[data-theme="dark"] .kircle-badge-active {
+  background: rgba(74, 222, 128, 0.15);
+  color: #4ade80;
+}
+
+.kircle-badge-locked {
+  background: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+}
+
+[data-theme="dark"] .kircle-badge-locked {
+  background: rgba(252, 165, 165, 0.15);
+  color: #fca5a5;
+}
+
+.kircle-badge-role-admin {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.kircle-badge-role-mod {
+  background: rgba(234, 179, 8, 0.12);
+  color: #a16207;
+}
+
+[data-theme="dark"] .kircle-badge-role-mod {
+  background: rgba(253, 224, 71, 0.15);
+  color: #fde047;
+}
+
+
+.kircle-admin-panel {
+  padding: 1.5rem;
+}
+
+.kircle-admin-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.kircle-admin-panel-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin-bottom: 0.25rem;
+}
+
+.kircle-admin-panel-desc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.kircle-table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.kircle-admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.kircle-admin-table thead th {
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.kircle-admin-table thead th:first-child {
+  border-radius: var(--radius-sm) 0 0 0;
+}
+
+.kircle-admin-table thead th:last-child {
+  border-radius: 0 var(--radius-sm) 0 0;
+}
+
+.kircle-admin-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background-color var(--dur-fast) var(--ease);
+}
+
+.kircle-admin-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.kircle-admin-table tbody tr:hover {
+  background: var(--surface-2);
+}
+
+.kircle-admin-table tbody tr.kircle-admin-row-locked {
+  opacity: 0.7;
+}
+
+.kircle-admin-table td {
+  padding: 0.75rem 0.875rem;
+  vertical-align: middle;
+  color: var(--text);
+}
+
+.kircle-admin-col-num {
+  width: 3rem;
+  color: var(--text-muted) !important;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.kircle-admin-col-email {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  word-break: break-all;
+}
+
+.kircle-admin-user-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.kircle-admin-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.kircle-admin-avatar-ph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.kircle-admin-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.kircle-admin-fullname {
+  font-weight: 600;
+  color: var(--text-strong);
+  font-size: 0.9rem;
+}
+
+.kircle-admin-username {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.kircle-admin-empty {
+  padding: 1.5rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+
+.kircle-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.kircle-confirm-overlay.kircle-confirm-visible {
+  opacity: 1;
+}
+
+.kircle-confirm-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px var(--shadow-color);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 380px;
+  transform: translateY(8px) scale(0.98);
+  transition: transform 0.2s ease;
+}
+
+.kircle-confirm-overlay.kircle-confirm-visible .kircle-confirm-box {
+  transform: translateY(0) scale(1);
+}
+
+.kircle-confirm-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin-bottom: 0.5rem;
+}
+
+.kircle-confirm-desc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.kircle-confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.625rem;
+}
+
+
+.kircle-admin-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(0.5rem);
+  background: #16a34a;
+  color: #ffffff;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 9999;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.kircle-admin-toast.kircle-admin-toast-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.kircle-admin-toast.kircle-admin-toast-error {
+  background: #dc2626;
+}

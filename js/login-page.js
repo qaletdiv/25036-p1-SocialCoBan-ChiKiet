@@ -12,7 +12,14 @@
       var url = "../../" + KircleRouter.getRedirectForRole(user.role);
       window.location.href = url;
     } else {
-      errEl.textContent = "Email hoặc mật khẩu không đúng.";
+      var found = typeof KircleMockUsers !== "undefined"
+        ? KircleMockUsers.findByEmail(email)
+        : null;
+      if (found && found.password === password && found.locked) {
+        errEl.textContent = "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.";
+      } else {
+        errEl.textContent = "Email hoặc mật khẩu không đúng.";
+      }
       errEl.style.display = "block";
     }
   });

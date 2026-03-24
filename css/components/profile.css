@@ -1,0 +1,299 @@
+.kircle-profile-wrap {
+  max-width: 680px;
+  margin-inline: auto;
+}
+
+.kircle-profile-hero {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.kircle-profile-avatar-outer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.kircle-profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--surface);
+  background: var(--surface-2);
+  box-shadow: 0 2px 10px var(--shadow-color);
+  flex-shrink: 0;
+}
+
+.kircle-profile-avatar-placeholder {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid var(--surface);
+  background: var(--surface-3);
+  box-shadow: 0 2px 10px var(--shadow-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.kircle-profile-info {
+  margin-bottom: 1rem;
+}
+
+.kircle-profile-fullname {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin: 0 0 0.2rem;
+  line-height: 1.2;
+}
+
+.kircle-profile-username {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin: 0 0 0.6rem;
+}
+
+.kircle-profile-bio {
+  font-size: 0.9375rem;
+  color: var(--text);
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.kircle-profile-bio-empty {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.kircle-profile-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.kircle-profile-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  cursor: default;
+}
+
+.kircle-profile-stat-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  line-height: 1;
+}
+
+.kircle-profile-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.kircle-profile-edit-btn {
+  align-self: flex-end;
+  margin-bottom: 0.25rem;
+}
+
+.kircle-profile-edit-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.kircle-profile-edit-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-strong);
+  margin: 0 0 1rem;
+}
+
+.kircle-profile-edit-avatar-preview-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.kircle-profile-edit-avatar-preview {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+}
+
+.kircle-profile-edit-avatar-placeholder {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.kircle-profile-edit-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.kircle-profile-edit-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.kircle-profile-edit-error {
+  font-size: 0.8125rem;
+  color: #e53e3e;
+  margin-top: 0.25rem;
+}
+
+.kircle-profile-edit-success {
+  font-size: 0.8125rem;
+  color: #38a169;
+  margin-top: 0.25rem;
+}
+
+.kircle-profile-posts-header {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-strong);
+  padding: 0 0 0.75rem;
+  border-bottom: 2px solid var(--primary-soft);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.kircle-profile-posts-count {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+body[data-page="profile"] .kircle-sidebar-nav svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  stroke: currentColor;
+}
+
+@media (min-width: 1025px) {
+  body[data-page="profile"] .kircle-sidebar-toggle {
+    display: none;
+  }
+
+  body[data-page="profile"] .kircle-sidebar {
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 72px !important;
+    max-height: none !important;
+    padding: 0;
+    padding-top: 5rem;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    box-shadow: none;
+    overflow: hidden;
+    transition: width 0.22s ease, box-shadow 0.22s ease;
+    z-index: 90;
+  }
+
+  body[data-page="profile"] .kircle-sidebar:hover {
+    width: 220px !important;
+    box-shadow: 6px 0 28px var(--shadow-color);
+  }
+
+  body[data-page="profile"] .kircle-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0 0.5rem;
+  }
+
+  body[data-page="profile"] .kircle-sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem;
+    border-radius: var(--radius-md);
+    white-space: nowrap;
+    overflow: hidden;
+    color: var(--text);
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  body[data-page="profile"] .kircle-sidebar-nav a:hover {
+    background: var(--surface-2);
+    color: var(--primary);
+  }
+
+  body[data-page="profile"] .kircle-sidebar-nav a.is-active {
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  body[data-page="profile"] .kircle-nav-label {
+    font-size: 0.9375rem;
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  body[data-page="profile"] .kircle-sidebar:hover .kircle-nav-label {
+    opacity: 1;
+  }
+
+  body[data-page="profile"] .kircle-main-wrap {
+    padding-left: calc(72px + 1rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .kircle-profile-avatar,
+  .kircle-profile-avatar-placeholder {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+
+  .kircle-profile-hero {
+    padding: 1rem;
+  }
+
+  .kircle-profile-edit-card {
+    padding: 1rem;
+  }
+}

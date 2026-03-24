@@ -64,26 +64,8 @@ const KircleDB = (function () {
     },
     {
       id: "u4",
-      username: "moderator",
-      fullName: "Moderator Kircle",
-      email: "mod@kircle.demo",
-      phone: "0901234564",
-      password: "12345",
-      avatar: "",
-      bio: "Mod account.",
-      role: "moderator",
-      status: "Hoạt động",
-      createdAt: "2024-01-10T10:00:00Z",
-      friendIds: [],
-      followerIds: [],
-      followingIds: [],
-      blockedIds: [],
-      locked: false,
-    },
-    {
-      id: "u5",
       username: "admin",
-      fullName: "Admin Kircle",
+      fullName: "Admin",
       email: "admin@kircle.demo",
       phone: "0901234565",
       password: "12345",
@@ -192,11 +174,13 @@ const KircleDB = (function () {
   }
 
   function init() {
-    if (localStorage.getItem(KEYS.seeded) === "1") return;
-    _write(KEYS.users, SEED_USERS);
-    _write(KEYS.posts, SEED_POSTS);
-    _write(KEYS.notifications, SEED_NOTIFICATIONS);
-    _write(KEYS.comments, SEED_COMMENTS);
+    var seeded = localStorage.getItem(KEYS.seeded) === "1";
+    var hasUsers = _read(KEYS.users).length > 0;
+    if (seeded && hasUsers) return;
+    if (_read(KEYS.users).length === 0) _write(KEYS.users, SEED_USERS);
+    if (_read(KEYS.posts).length === 0) _write(KEYS.posts, SEED_POSTS);
+    if (_read(KEYS.notifications).length === 0) _write(KEYS.notifications, SEED_NOTIFICATIONS);
+    if (_read(KEYS.comments).length === 0) _write(KEYS.comments, SEED_COMMENTS);
     localStorage.setItem(KEYS.seeded, "1");
   }
 
@@ -251,6 +235,36 @@ const KircleDB = (function () {
       });
       _write(KEYS.users, list);
       return list[idx];
+    },
+
+    follow: function (followerId, targetId) {
+      if (followerId === targetId) return false;
+      var list = _read(KEYS.users);
+      var fIdx = list.findIndex(function (u) { return u.id === followerId; });
+      var tIdx = list.findIndex(function (u) { return u.id === targetId; });
+      if (fIdx === -1 || tIdx === -1) return false;
+      if (!Array.isArray(list[fIdx].followingIds)) list[fIdx].followingIds = [];
+      if (!Array.isArray(list[tIdx].followerIds)) list[tIdx].followerIds = [];
+      if (list[fIdx].followingIds.indexOf(targetId) === -1) list[fIdx].followingIds.push(targetId);
+      if (list[tIdx].followerIds.indexOf(followerId) === -1) list[tIdx].followerIds.push(followerId);
+      _write(KEYS.users, list);
+      return true;
+    },
+
+    unfollow: function (followerId, targetId) {
+      var list = _read(KEYS.users);
+      var fIdx = list.findIndex(function (u) { return u.id === followerId; });
+      var tIdx = list.findIndex(function (u) { return u.id === targetId; });
+      if (fIdx === -1 || tIdx === -1) return false;
+      list[fIdx].followingIds = (list[fIdx].followingIds || []).filter(function (id) { return id !== targetId; });
+      list[tIdx].followerIds = (list[tIdx].followerIds || []).filter(function (id) { return id !== followerId; });
+      _write(KEYS.users, list);
+      return true;
+    },
+
+    isFollowing: function (followerId, targetId) {
+      var u = this.findById(followerId);
+      return !!(u && u.followingIds && u.followingIds.indexOf(targetId) !== -1);
     },
   };
 

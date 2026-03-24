@@ -11,9 +11,30 @@
       .replace(/>/g, "&gt;");
   }
 
+  function getInitials(name) {
+    var parts = String(name || "?").trim().split(/\s+/);
+    if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    return (parts[0][0] || "?").toUpperCase();
+  }
+
+  function buildPostAvatar(author) {
+    var name = author.fullName || author.username || "User";
+    var avatar = author.avatar || "";
+    if (avatar) {
+      return (
+        '<img class="kircle-post-avatar" src="' + escHtml(avatar) + '" alt="' + escHtml(name) + '" ' +
+        'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline-flex\';">' +
+        '<span class="kircle-post-avatar-placeholder" style="display:none;" aria-hidden="true">' +
+        escHtml(getInitials(name)) + '</span>'
+      );
+    }
+    return '<span class="kircle-post-avatar-placeholder" aria-hidden="true">' + escHtml(getInitials(name)) + '</span>';
+  }
+
   function canSeePost(post, currentUserId) {
     var author = KircleMockUsers.findById(post.authorId);
     if (!author) return false;
+    if (author.locked && post.authorId !== currentUserId) return false;
     if (post.authorId === currentUserId) return true;
     if (post.privacy === "private") return false;
     if (post.privacy === "public") return true;
@@ -45,6 +66,19 @@
     return d.toLocaleDateString("vi-VN");
   }
 
+  function buildCommentAvatarHtml(name, avatar) {
+    var initials = getInitials(name);
+    if (avatar) {
+      return (
+        '<img class="kircle-comment-avatar" src="' + escHtml(avatar) + '" alt="" ' +
+        'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline-flex\';">' +
+        '<span class="kircle-post-avatar-placeholder" style="display:none;width:32px;height:32px;font-size:0.75rem;" aria-hidden="true">' +
+        escHtml(initials) + '</span>'
+      );
+    }
+    return '<span class="kircle-post-avatar-placeholder" style="width:32px;height:32px;font-size:0.75rem;" aria-hidden="true">' + escHtml(initials) + '</span>';
+  }
+
   function buildCommentHtml(c) {
     var cAuthor = KircleMockUsers.findById(c.authorId);
     var name = cAuthor ? (cAuthor.fullName || cAuthor.username || "User") : "User";
@@ -52,7 +86,7 @@
     var isOwn = c.authorId === user.id;
     return (
       '<div class="kircle-comment" data-comment-id="' + c.id + '">' +
-      '<img class="kircle-comment-avatar" src="' + escHtml(avatar) + '" alt="" onerror="this.style.display=\'none\'">' +
+      buildCommentAvatarHtml(name, avatar) +
       '<div class="kircle-comment-body">' +
       '<span class="kircle-comment-author">' + escHtml(name) + "</span>" +
       '<p class="kircle-comment-content">' + escHtml(c.content) + "</p>" +
@@ -184,12 +218,17 @@
       { public: "Công khai", followers: "Người theo dõi", private: "Riêng tư" }[post.privacy] ||
       post.privacy;
 
+    var profileUrl = "profile.html?uid=" + encodeURIComponent(post.authorId);
     return (
       '<article class="kircle-post" data-post-id="' + post.id + '">' +
       '<div class="kircle-post-header">' +
-      '<img class="kircle-post-avatar" src="' + escHtml(author.avatar || "") + '" alt="" onerror="this.style.display=\'none\'">' +
+      '<a href="' + profileUrl + '" class="kircle-post-author-link">' +
+      buildPostAvatar(author) +
+      '</a>' +
       '<div class="kircle-post-author-wrap">' +
+      '<a href="' + profileUrl + '" class="kircle-post-author-name-link">' +
       '<span class="kircle-post-author-name">' + escHtml(author.fullName || author.username || "User") + "</span>" +
+      '</a>' +
       '<div class="kircle-post-meta">' + formatDate(post.createdAt) + " · " + privacyLabel + "</div>" +
       "</div>" +
       (isOwner

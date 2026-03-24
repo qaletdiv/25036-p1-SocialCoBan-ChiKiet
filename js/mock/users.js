@@ -43,6 +43,18 @@ const KircleMockUsers = (function () {
     return KircleDB.users.add(newUser);
   }
 
+  function follow(followerId, targetId) {
+    return KircleDB.users.follow(followerId, targetId);
+  }
+
+  function unfollow(followerId, targetId) {
+    return KircleDB.users.unfollow(followerId, targetId);
+  }
+
+  function isFollowing(followerId, targetId) {
+    return KircleDB.users.isFollowing(followerId, targetId);
+  }
+
   return {
     findByEmail,
     findById,
@@ -50,5 +62,8 @@ const KircleMockUsers = (function () {
     getAll,
     update,
     register,
+    follow,
+    unfollow,
+    isFollowing,
   };
 })();

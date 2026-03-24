@@ -68,3 +68,17 @@
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
 }
+
+.kircle-btn-danger {
+  background: #ef4444;
+  color: #ffffff;
+  border: 1px solid transparent;
+}
+
+.kircle-btn-danger:hover:not(:disabled) {
+  background: #dc2626;
+}
+
+.kircle-btn-danger:active:not(:disabled) {
+  background: #b91c1c;
+}
