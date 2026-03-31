@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/components/form.css">
     <link rel="stylesheet" href="../css/components/post.css">
     <link rel="stylesheet" href="../css/components/table.css">
+    <link rel="stylesheet" href="../css/components/user-search.css">
     <script src="../js/theme.js"></script>
     <script src="../js/sidebar.js"></script>
 </head>
@@ -94,7 +95,6 @@
                     </button>
                     <div class="kircle-dropdown-menu" id="user-menu" role="menu">
                         <a href="profile.html" role="menuitem">Hồ sơ</a>
-                        <a href="#" role="menuitem">Cài đặt</a>
                         <a href="../index.html" role="menuitem">Về trang chủ</a>
                         <button type="button" id="logout-btn" role="menuitem">Đăng xuất</button>
                     </div>
@@ -146,8 +146,11 @@
     <script src="../js/mock/posts.js"></script>
     <script src="../js/mock/comments.js"></script>
     <script src="../js/mock/notifications.js"></script>
+    <script src="../js/mock/reports.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/router-utils.js"></script>
+    <script src="../js/user-search.js"></script>
     <script src="../js/news-page.js"></script>
+    <script>KircleUserSearch.init("feed-search");</script>
 </body>
 </html>

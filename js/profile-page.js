@@ -42,11 +42,28 @@
 
   function getProfileUserId() {
     var params = new URLSearchParams(window.location.search);
+    var usernameParam = params.get("user");
+    if (usernameParam) {
+      if (usernameParam === currentUser.username) {
+        window.history.replaceState(null, "", "profile.html");
+        return currentUser.id;
+      }
+      var found = KircleMockUsers.findByUsername(usernameParam);
+      return found ? found.id : "__not_found__";
+    }
     return params.get("uid") || currentUser.id;
   }
 
   var profileUserId = getProfileUserId();
   var isOwnProfile = profileUserId === currentUser.id;
+
+  (function guardAdminProfile() {
+    if (!profileUserId || profileUserId === "__not_found__") return;
+    var target = KircleMockUsers.findById(profileUserId);
+    if (target && target.role === "admin" && !isOwnProfile) {
+      profileUserId = "__not_found__";
+    }
+  })();
 
   function renderProfileHero() {
     var profileUser = KircleMockUsers.findById(profileUserId);
@@ -133,6 +150,79 @@
   }
 
   var openComments = {};
+  var CONTENT_LIMIT = 200;
+
+  function closePostMenu() {
+    var existing = document.querySelector('.kircle-post-dropdown');
+    if (existing) existing.remove();
+  }
+
+  document.addEventListener('click', closePostMenu);
+
+  function showConfirm(opts) {
+    var old = document.getElementById('kircle-confirm-modal');
+    if (old) old.remove();
+    var overlay = document.createElement('div');
+    overlay.id = 'kircle-confirm-modal';
+    overlay.className = 'kircle-confirm-overlay';
+    overlay.innerHTML =
+      '<div class="kircle-confirm-box" role="dialog" aria-modal="true">' +
+        '<p class="kircle-confirm-title">' + (opts.title || '') + '</p>' +
+        (opts.desc ? '<p class="kircle-confirm-desc">' + opts.desc + '</p>' : '') +
+        '<div class="kircle-confirm-actions">' +
+          '<button type="button" class="kircle-btn kircle-btn-secondary kircle-btn-sm" id="kircle-confirm-cancel">Hủy</button>' +
+          '<button type="button" class="kircle-btn kircle-btn-danger kircle-btn-sm" id="kircle-confirm-ok">' + (opts.okLabel || 'Xác nhận') + '</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    setTimeout(function () { overlay.classList.add('kircle-confirm-visible'); }, 16);
+    function close() {
+      overlay.classList.remove('kircle-confirm-visible');
+      setTimeout(function () { if (overlay.parentNode) overlay.remove(); }, 200);
+    }
+    document.getElementById('kircle-confirm-ok').addEventListener('click', function () { close(); opts.onOk(); });
+    document.getElementById('kircle-confirm-cancel').addEventListener('click', close);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+    document.getElementById('kircle-confirm-ok').focus();
+  }
+
+  function showReportModal(postId, onSubmit) {
+    var old = document.getElementById('kircle-report-modal');
+    if (old) old.remove();
+    var overlay = document.createElement('div');
+    overlay.id = 'kircle-report-modal';
+    overlay.className = 'kircle-confirm-overlay';
+    overlay.innerHTML =
+      '<div class="kircle-confirm-box" role="dialog" aria-modal="true">' +
+        '<p class="kircle-confirm-title">Báo cáo bài viết</p>' +
+        '<p class="kircle-confirm-desc">Chọn lý do báo cáo bài viết này.</p>' +
+        '<select id="kircle-report-reason" class="kircle-select" style="width:100%;margin-bottom:1.25rem;">' +
+          '<option value="inappropriate">Nội dung không phù hợp</option>' +
+          '<option value="spam">Spam</option>' +
+          '<option value="hate">Ngôn từ kích động</option>' +
+          '<option value="misinformation">Thông tin sai lệch</option>' +
+          '<option value="other">Khác</option>' +
+        '</select>' +
+        '<div class="kircle-confirm-actions">' +
+          '<button type="button" class="kircle-btn kircle-btn-secondary kircle-btn-sm" id="kircle-report-cancel">Hủy</button>' +
+          '<button type="button" class="kircle-btn kircle-btn-primary kircle-btn-sm" id="kircle-report-ok">Gửi báo cáo</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    setTimeout(function () { overlay.classList.add('kircle-confirm-visible'); }, 16);
+    function close() {
+      overlay.classList.remove('kircle-confirm-visible');
+      setTimeout(function () { if (overlay.parentNode) overlay.remove(); }, 200);
+    }
+    document.getElementById('kircle-report-ok').addEventListener('click', function () {
+      var reason = document.getElementById('kircle-report-reason').value;
+      close();
+      onSubmit(reason);
+    });
+    document.getElementById('kircle-report-cancel').addEventListener('click', close);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+    document.getElementById('kircle-report-ok').focus();
+  }
 
   function buildCommentAvatarHtml(name, avatar) {
     var initials = getInitials(name);
@@ -280,7 +370,7 @@
 
     var privacyLabel =
       { public: 'Công khai', followers: 'Người theo dõi', private: 'Riêng tư' }[post.privacy] || post.privacy;
-    var profileUrl = 'profile.html?uid=' + encodeURIComponent(post.authorId);
+    var profileUrl = 'profile.html?user=' + encodeURIComponent(author.username);
 
     return (
       '<article class="kircle-post" data-post-id="' + post.id + '">' +
@@ -294,12 +384,21 @@
       '</a>' +
       '<div class="kircle-post-meta">' + formatDate(post.createdAt) + ' · ' + privacyLabel + '</div>' +
       '</div>' +
-      (isOwner
-        ? '<div class="kircle-post-actions-wrap"><button type="button" class="kircle-post-menu-btn" data-action="menu" data-post-id="' + post.id + '" aria-label="Menu">⋯</button></div>'
-        : '') +
+      '<div class="kircle-post-actions-wrap"><button type="button" class="kircle-post-menu-btn" data-action="menu" data-post-id="' + post.id + '" data-is-owner="' + (isOwner ? '1' : '0') + '" aria-label="Menu">⋯</button></div>' +
       '</div>' +
       '<div class="kircle-post-body">' +
-      (post.content ? '<p class="kircle-post-content">' + escHtml(post.content) + '</p>' : '') +
+      (post.content
+        ? (post.content.length > CONTENT_LIMIT
+          ? '<p class="kircle-post-content">' +
+              '<span class="kircle-excerpt-short">' + escHtml(post.content.slice(0, CONTENT_LIMIT)) + '… ' +
+                '<button type="button" class="kircle-excerpt-toggle" data-action="expand-post">Xem thêm</button>' +
+              '</span>' +
+              '<span class="kircle-excerpt-full" style="display:none;">' + escHtml(post.content) + ' ' +
+                '<button type="button" class="kircle-excerpt-toggle" data-action="collapse-post">Ẩn bớt</button>' +
+              '</span>' +
+            '</p>'
+          : '<p class="kircle-post-content">' + escHtml(post.content) + '</p>')
+        : '') +
       mediaHtml +
       '</div>' +
       '<div class="kircle-post-footer">' +
@@ -324,6 +423,22 @@
   }
 
   function bindPostListEvents(listEl) {
+    listEl.querySelectorAll('[data-action=expand-post]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var p = btn.closest('.kircle-post-content');
+        p.querySelector('.kircle-excerpt-short').style.display = 'none';
+        p.querySelector('.kircle-excerpt-full').style.display = '';
+      });
+    });
+
+    listEl.querySelectorAll('[data-action=collapse-post]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var p = btn.closest('.kircle-post-content');
+        p.querySelector('.kircle-excerpt-full').style.display = 'none';
+        p.querySelector('.kircle-excerpt-short').style.display = '';
+      });
+    });
+
     listEl.querySelectorAll('[data-action=like]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         KircleMockPosts.toggleLike(btn.getAttribute('data-post-id'), currentUser.id);
@@ -332,14 +447,70 @@
     });
 
     listEl.querySelectorAll('[data-action=menu]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
         var id = btn.getAttribute('data-post-id');
-        if (confirm('Xóa bài viết này?')) {
-          KircleMockPosts.remove(id);
-          delete openComments[id];
-          renderPosts();
-          renderProfileHero();
+        var isOwnerPost = btn.getAttribute('data-is-owner') === '1';
+        var isAdmin = currentUser.role === 'admin';
+        var canDelete = isOwnerPost || isAdmin;
+
+        var existing = document.querySelector('.kircle-post-dropdown');
+        var isOpen = existing && existing.getAttribute('data-for-post') === id;
+        closePostMenu();
+        if (isOpen) return;
+
+        var dropdown = document.createElement('div');
+        dropdown.className = 'kircle-post-dropdown';
+        dropdown.setAttribute('data-for-post', id);
+
+        if (canDelete) {
+          var delItem = document.createElement('button');
+          delItem.type = 'button';
+          delItem.className = 'kircle-post-dropdown-item kircle-post-dropdown-item-danger';
+          delItem.textContent = 'Xóa bài';
+          delItem.addEventListener('click', function (ev) {
+            ev.stopPropagation();
+            closePostMenu();
+            showConfirm({
+              title: 'Xóa bài viết này?',
+              desc: 'Bài viết sẽ bị xóa vĩnh viễn và không thể khôi phục.',
+              okLabel: 'Xóa',
+              onOk: function () {
+                KircleMockPosts.remove(id);
+                if (typeof KircleMockReports !== 'undefined') {
+                  KircleMockReports.removeByPostId(id);
+                }
+                delete openComments[id];
+                renderPosts();
+                renderProfileHero();
+              },
+            });
+          });
+          dropdown.appendChild(delItem);
+        } else {
+          var reportItem = document.createElement('button');
+          reportItem.type = 'button';
+          var alreadyReported = typeof KircleMockReports !== 'undefined' && KircleMockReports.hasReported(id, currentUser.id);
+          if (alreadyReported) {
+            reportItem.className = 'kircle-post-dropdown-item kircle-post-dropdown-item-disabled';
+            reportItem.textContent = 'Đã báo cáo';
+            reportItem.disabled = true;
+          } else {
+            reportItem.className = 'kircle-post-dropdown-item';
+            reportItem.textContent = 'Báo cáo';
+            reportItem.addEventListener('click', function (ev) {
+              ev.stopPropagation();
+              closePostMenu();
+              showReportModal(id, function (reason) {
+                KircleMockReports.add({ postId: id, reportedBy: currentUser.id, reason: reason });
+              });
+            });
+          }
+          dropdown.appendChild(reportItem);
         }
+
+        dropdown.addEventListener('click', function (ev) { ev.stopPropagation(); });
+        btn.closest('.kircle-post-actions-wrap').appendChild(dropdown);
       });
     });
 

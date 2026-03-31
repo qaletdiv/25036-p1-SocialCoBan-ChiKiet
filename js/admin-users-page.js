@@ -94,8 +94,6 @@
       var roleBadge = "";
       if (u.role === "admin") {
         roleBadge = ' <span class="kircle-badge kircle-badge-role-admin">Admin</span>';
-      } else if (u.role === "moderator") {
-        roleBadge = ' <span class="kircle-badge kircle-badge-role-mod">Mod</span>';
       }
 
       var avatarHtml;
@@ -126,13 +124,13 @@
         "<tr" + (isLocked ? ' class="kircle-admin-row-locked"' : "") + ">" +
         '<td class="kircle-admin-col-num">' + (i + 1) + "</td>" +
         "<td>" +
-          '<div class="kircle-admin-user-cell">' +
+          '<a href="profile.html?user=' + encodeURIComponent(u.username) + '" class="kircle-admin-user-cell kircle-admin-user-link">' +
           avatarHtml +
           '<div class="kircle-admin-user-info">' +
             '<span class="kircle-admin-fullname">' + escHtml(u.fullName || u.username) + "</span>" +
             '<span class="kircle-admin-username">@' + escHtml(u.username) + "</span>" +
           "</div>" +
-          "</div>" +
+          "</a>" +
           roleBadge +
         "</td>" +
         '<td class="kircle-admin-col-email">' + escHtml(u.email) + "</td>" +
@@ -146,11 +144,11 @@
       '<div class="kircle-table-scroll">' +
       '<table class="kircle-admin-table">' +
       "<thead><tr>" +
-      '<th class="kircle-admin-col-num">#</th>' +
+      '<th class="kircle-admin-col-num">No</th>' +
       "<th>Tên</th>" +
       '<th class="kircle-admin-col-email">Email</th>' +
       "<th>Trạng thái</th>" +
-      "<th>Hành động</th>" +
+      "<th>Quản lý</th>" +
       "</tr></thead>" +
       "<tbody>" + rows + "</tbody>" +
       "</table></div>";

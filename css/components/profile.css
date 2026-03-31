@@ -222,7 +222,7 @@ body[data-page="profile"] .kircle-sidebar-nav svg {
     max-height: none !important;
     padding: 0;
     padding-top: 5rem;
-    background: var(--surface);
+    background: var(--bg);
     border-right: 1px solid var(--border);
     box-shadow: none;
     overflow: hidden;
@@ -266,18 +266,8 @@ body[data-page="profile"] .kircle-sidebar-nav svg {
     font-weight: 600;
   }
 
-  body[data-page="profile"] .kircle-nav-label {
-    font-size: 0.9375rem;
-    opacity: 0;
-    transition: opacity 0.12s ease;
-  }
-
-  body[data-page="profile"] .kircle-sidebar:hover .kircle-nav-label {
-    opacity: 1;
-  }
-
   body[data-page="profile"] .kircle-main-wrap {
-    padding-left: calc(72px + 1rem);
+    padding-left: 1rem;
   }
 }
 

@@ -5,27 +5,23 @@
     if (!user || user.role !== "admin") return;
 
     var href = window.location.href;
-    var isActive = href.indexOf("admin-users.html") !== -1;
 
-    var link = document.createElement("a");
-    link.href = "admin-users.html";
-    if (isActive) link.className = "is-active";
-    var usesIconStyle = !!nav.querySelector(".kircle-nav-label");
-    if (usesIconStyle) {
-      link.innerHTML =
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
-        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-        '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>' +
-        '<circle cx="9" cy="7" r="4"/>' +
-        '<path d="M23 21v-2a4 4 0 0 0-3-3.87"/>' +
-        '<path d="M16 3.13a4 4 0 0 1 0 7.75"/>' +
-        "</svg>" +
-        '<span class="kircle-nav-label">Quản lý người dùng</span>';
-    } else {
-      link.textContent = "Quản lý người dùng";
-    }
+    var adminLinks = [
+      { href: "admin-users.html", label: "Quản lý người dùng" },
+      { href: "admin-reports.html", label: "Quản lý báo cáo" },
+    ];
 
-    nav.appendChild(link);
+    nav.innerHTML = "";
+    nav.dataset.adminNav = "true";
+
+    adminLinks.forEach(function (item) {
+      var a = document.createElement("a");
+      a.href = item.href;
+      if (href.indexOf(item.href) !== -1) a.className = "is-active";
+      a.textContent = item.label;
+      nav.appendChild(a);
+    });
+
   }
 
   function init() {
@@ -33,7 +29,10 @@
     var overlay = document.getElementById("sidebar-overlay");
     var sidebar = document.getElementById("sidebar");
     var mobileSearchToggle = document.getElementById("mobile-search-toggle");
-    var searchInput = document.getElementById("feed-search");
+    var searchInput = document.getElementById("feed-search") ||
+      document.getElementById("profile-search") ||
+      document.getElementById("admin-users-search") ||
+      document.getElementById("admin-reports-search");
     var app = document.body;
 
     if (!toggle || !overlay || !sidebar || !app) return;
@@ -93,7 +92,7 @@
     }
 
     var nav = sidebar.querySelector(".kircle-sidebar-nav");
-    if (nav) injectAdminLink(nav);
+    if (nav && !nav.dataset.adminNav) injectAdminLink(nav);
   }
 
   if (document.readyState === "loading") {

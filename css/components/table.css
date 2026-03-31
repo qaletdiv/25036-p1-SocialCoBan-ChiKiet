@@ -144,9 +144,21 @@
 }
 
 .kircle-admin-user-cell {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.625rem;
+  width: fit-content;
+}
+
+a.kircle-admin-user-link {
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius-sm);
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+a.kircle-admin-user-link:hover {
+  opacity: 0.75;
 }
 
 .kircle-admin-avatar {
@@ -206,6 +218,12 @@
   padding: 1rem;
   opacity: 0;
   transition: opacity 0.2s ease;
+}
+
+@media (max-width: 480px) {
+  .kircle-confirm-overlay {
+    padding: 1.25rem 2rem;
+  }
 }
 
 .kircle-confirm-overlay.kircle-confirm-visible {
@@ -274,4 +292,175 @@
 
 .kircle-admin-toast.kircle-admin-toast-error {
   background: #dc2626;
+}
+
+
+.kircle-badge-report {
+  background: rgba(234, 179, 8, 0.12);
+  color: #a16207;
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .kircle-badge-report {
+  background: rgba(253, 224, 71, 0.15);
+  color: #fde047;
+}
+
+.kircle-admin-col-date {
+  white-space: nowrap;
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  min-width: 9rem;
+}
+
+.kircle-admin-col-actions {
+  white-space: nowrap;
+  min-width: 13rem;
+}
+
+.kircle-btn-equal-w {
+  min-width: 5.5rem;
+  text-align: center;
+}
+
+.kircle-admin-col-actions .kircle-btn + .kircle-btn {
+  margin-left: 0.5rem;
+}
+
+.kircle-report-post-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  max-width: 280px;
+}
+
+.kircle-report-post-author {
+  font-size: 0.78rem;
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.kircle-report-post-author:hover {
+  text-decoration: underline;
+}
+
+.kircle-report-post-excerpt {
+  font-size: 0.875rem;
+  color: var(--text);
+  word-break: break-word;
+}
+
+.kircle-report-post-media {
+  margin-top: 0.35rem;
+}
+
+.kircle-report-post-thumb {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  display: block;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.kircle-report-post-thumb:hover {
+  opacity: 0.85;
+}
+
+.kircle-excerpt-toggle {
+  border: none;
+  background: none;
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.kircle-excerpt-toggle:hover {
+  text-decoration: underline;
+}
+
+.kircle-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  cursor: zoom-out;
+}
+
+.kircle-lightbox.kircle-lightbox-visible {
+  opacity: 1;
+}
+
+.kircle-lightbox-inner {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.kircle-lightbox-img {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  display: block;
+}
+
+.kircle-lightbox-close {
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.92);
+  color: #1a1a1a;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: background 0.15s ease;
+}
+
+.kircle-lightbox-close:hover {
+  background: #fff;
+}
+
+.kircle-report-post-removed {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.kircle-text-muted {
+  color: var(--text-muted);
+}
+
+.kircle-post-report-btn {
+  color: var(--text-muted);
+}
+
+.kircle-post-report-btn:hover:not(:disabled) {
+  color: #dc2626;
+}
+
+.kircle-post-report-btn.is-reported,
+.kircle-post-report-btn:disabled {
+  color: var(--text-muted);
+  opacity: 0.5;
+  cursor: default;
 }

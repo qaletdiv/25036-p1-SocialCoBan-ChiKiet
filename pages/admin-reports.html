@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý Người dùng – Kircle</title>
+    <title>Quản lý Báo cáo – Kircle</title>
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/themes.css">
     <link rel="stylesheet" href="../css/layout.css">
@@ -24,7 +24,7 @@
                     <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
                 </svg>
             </button>
-            <a href="news.html" class="kircle-logo-link kircle-header-logo" aria-label="Kircle">
+            <a href="admin-users.html" class="kircle-logo-link kircle-header-logo" aria-label="Kircle">
                 <svg class="kircle-header-logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <defs>
                         <linearGradient id="kircleHeaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -61,7 +61,7 @@
             <div class="kircle-header-search">
                 <input
                     type="search"
-                    id="admin-users-search"
+                    id="admin-reports-search"
                     class="kircle-input"
                     placeholder="Tìm kiếm người dùng..."
                     style="width: 100%; font-size: 0.875rem; padding: 0.35rem 0.5rem;"
@@ -81,11 +81,7 @@
                         <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
                         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                     </svg>
-                    <span
-                        id="notif-badge"
-                        class="kircle-badge kircle-badge-pending kircle-header-notif-badge"
-                        style="display: none;"
-                    ></span>
+                    <span id="notif-badge" class="kircle-badge kircle-badge-pending kircle-header-notif-badge" style="display: none;"></span>
                 </button>
                 <div class="kircle-dropdown-wrap">
                     <button type="button" class="kircle-dropdown-trigger" id="user-menu-btn" aria-expanded="false" aria-haspopup="true">
@@ -105,31 +101,32 @@
     <div class="kircle-main-wrap">
         <aside class="kircle-sidebar" id="sidebar" aria-label="Điều hướng quản trị">
             <nav class="kircle-sidebar-nav" data-admin-nav="true">
-                <a href="admin-users.html" class="is-active">Quản lý người dùng</a>
-                <a href="admin-reports.html">Quản lý báo cáo</a>
+                <a href="admin-users.html">Quản lý người dùng</a>
+                <a href="admin-reports.html" class="is-active">Quản lý báo cáo</a>
             </nav>
         </aside>
         <main class="kircle-main">
             <div class="kircle-card kircle-admin-panel">
                 <div class="kircle-admin-panel-header">
                     <div>
-                        <h1 class="kircle-admin-panel-title">Quản lý người dùng</h1>
-                        <p class="kircle-admin-panel-desc">Xem, khóa và mở khóa tài khoản người dùng trong hệ thống.</p>
+                        <h1 class="kircle-admin-panel-title">Quản lý báo cáo</h1>
+                        <p class="kircle-admin-panel-desc">Xem xét và xử lý các bài viết bị người dùng báo cáo vi phạm.</p>
                     </div>
-                    <span id="admin-user-count" class="kircle-badge"></span>
+                    <span id="admin-report-count" class="kircle-badge"></span>
                 </div>
-                <div id="admin-user-table-wrap"></div>
+                <div id="admin-report-table-wrap"></div>
             </div>
         </main>
     </div>
 
     <script src="../js/db.js"></script>
     <script src="../js/mock/users.js"></script>
-    <script src="../js/mock/notifications.js"></script>
+    <script src="../js/mock/posts.js"></script>
+    <script src="../js/mock/reports.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/router-utils.js"></script>
     <script src="../js/user-search.js"></script>
-    <script src="../js/admin-users-page.js"></script>
-    <script>KircleUserSearch.init("admin-users-search");</script>
+    <script src="../js/admin-reports-page.js"></script>
+    <script>KircleUserSearch.init("admin-reports-search");</script>
 </body>
 </html>

@@ -281,6 +281,38 @@
   font-weight: 600;
 }
 
+@media (min-width: 769px) {
+  [data-page="profile"] .kircle-sidebar {
+    width: 52px;
+    overflow: hidden;
+    transition: width 0.22s ease;
+  }
+
+  [data-page="profile"] .kircle-sidebar:hover {
+    width: 220px;
+  }
+
+  [data-page="profile"] .kircle-sidebar-nav a {
+    white-space: nowrap;
+  }
+
+  [data-page="profile"] .kircle-sidebar-nav svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  [data-page="profile"] .kircle-nav-label {
+    opacity: 0;
+    transition: opacity 0.08s ease;
+  }
+
+  [data-page="profile"] .kircle-sidebar:hover .kircle-nav-label {
+    opacity: 1;
+    transition: opacity 0.18s ease 0.1s;
+  }
+}
+
 .kircle-main {
   flex: 1;
   min-width: 0;
@@ -321,9 +353,13 @@
   opacity: 1;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .kircle-sidebar-toggle {
     display: inline-flex;
+  }
+
+  .kircle-sidebar-nav a svg {
+    display: none;
   }
 
   .kircle-sidebar-overlay {

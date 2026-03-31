@@ -1,7 +1,6 @@
 const KircleRouter = (function () {
   function getRedirectForRole(role) {
-    if (role === "admin") return "pages/news.html";
-    if (role === "moderator") return "pages/news.html";
+    if (role === "admin") return "pages/admin-users.html";
     return "pages/news.html";
   }
 
