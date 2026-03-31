@@ -12,7 +12,7 @@ const KircleDB = (function () {
       id: "u1",
       username: "alice",
       fullName: "Alice Nguyễn",
-      email: "alice@kircle.demo"aa
+      email: "alice@kircle.demo",
       phone: "0901234561",
       password: "12345",
       avatar: "",
@@ -398,9 +398,8 @@ const KircleDB = (function () {
     },
   };
 
-  init();
-
   return {
+    init: init,
     users: users,
     posts: posts,
     notifications: notifications,
