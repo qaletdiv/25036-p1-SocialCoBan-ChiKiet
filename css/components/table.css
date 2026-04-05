@@ -327,11 +327,15 @@ a.kircle-admin-user-link:hover {
   margin-left: 0.5rem;
 }
 
+.kircle-admin-col-post {
+  min-width: 260px;
+  width: 35%;
+}
+
 .kircle-report-post-cell {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  max-width: 280px;
 }
 
 .kircle-report-post-author {

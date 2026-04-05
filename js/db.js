@@ -21,7 +21,7 @@ const KircleDB = (function () {
       status: "Hoạt động",
       createdAt: "2024-01-15T10:00:00Z",
       friendIds: ["u2", "u3"],
-      followerIds: ["u4"],
+      followerIds: ["u3"],
       followingIds: ["u2", "u3"],
       blockedIds: [],
       locked: false,
@@ -39,8 +39,8 @@ const KircleDB = (function () {
       status: "Hoạt động",
       createdAt: "2024-01-16T10:00:00Z",
       friendIds: ["u1", "u3"],
-      followerIds: [],
-      followingIds: ["u1"],
+      followerIds: ["u1", "u3"],
+      followingIds: [],
       blockedIds: [],
       locked: false,
     },
@@ -173,15 +173,17 @@ const KircleDB = (function () {
     } catch (_) {}
   }
 
+  var SEED_VERSION = "2";
+
   function init() {
-    var seeded = localStorage.getItem(KEYS.seeded) === "1";
-    var hasUsers = _read(KEYS.users).length > 0;
-    if (seeded && hasUsers) return;
-    if (_read(KEYS.users).length === 0) _write(KEYS.users, SEED_USERS);
-    if (_read(KEYS.posts).length === 0) _write(KEYS.posts, SEED_POSTS);
-    if (_read(KEYS.notifications).length === 0) _write(KEYS.notifications, SEED_NOTIFICATIONS);
-    if (_read(KEYS.comments).length === 0) _write(KEYS.comments, SEED_COMMENTS);
-    localStorage.setItem(KEYS.seeded, "1");
+    var seeded = localStorage.getItem(KEYS.seeded);
+    if (seeded === SEED_VERSION) return;
+    // Seed version thay đổi → reset toàn bộ dữ liệu gốc
+    _write(KEYS.users, SEED_USERS);
+    _write(KEYS.posts, SEED_POSTS);
+    _write(KEYS.notifications, SEED_NOTIFICATIONS);
+    _write(KEYS.comments, SEED_COMMENTS);
+    localStorage.setItem(KEYS.seeded, SEED_VERSION);
   }
 
   var users = {

@@ -8,6 +8,7 @@
   --line: 1.5;
 
   --container-max: 1120px;
+  --header-h: 3.75rem;
 
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   --dur-fast: 150ms;

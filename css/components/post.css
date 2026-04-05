@@ -244,17 +244,36 @@
 .kircle-composer-options {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
   gap: 0.5rem;
   margin-top: 0.5rem;
 }
 
 .kircle-composer-privacy {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.35rem;
   font-size: 0.875rem;
   color: var(--text-muted);
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.kircle-composer-privacy-label {
+  white-space: nowrap;
 }
 
 .kircle-composer-submit {
   flex-shrink: 0;
+  margin-left: auto;
+}
+
+@media (max-width: 480px) {
+  .kircle-composer-privacy-label {
+    display: none;
+  }
 }
 
 .kircle-composer-img-row {

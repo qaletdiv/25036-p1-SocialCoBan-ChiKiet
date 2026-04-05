@@ -196,7 +196,7 @@
       return (
         '<tr>' +
         '<td class="kircle-admin-col-num">' + (i + 1) + '</td>' +
-        '<td>' + postCell + '</td>' +
+        '<td class="kircle-admin-col-post">' + postCell + '</td>' +
         '<td>' + reporterCell + '</td>' +
         '<td><span class="kircle-badge kircle-badge-report">' + escHtml(reasonLabel) + '</span></td>' +
         '<td class="kircle-admin-col-date">' + formatDate(r.createdAt) + '</td>' +
@@ -210,7 +210,7 @@
       '<table class="kircle-admin-table">' +
       '<thead><tr>' +
       '<th class="kircle-admin-col-num">No</th>' +
-      '<th>Bài viết</th>' +
+      '<th class="kircle-admin-col-post">Bài viết</th>' +
       '<th>Người báo cáo</th>' +
       '<th>Lý do</th>' +
       '<th class="kircle-admin-col-date">Thời gian</th>' +
@@ -268,7 +268,7 @@
   });
 
   document.getElementById("header-username").textContent = user.fullName || "Admin";
-  document.getElementById("header-avatar").src = user.avatar || "";
+  KircleRouter.setAvatar(document.getElementById("header-avatar"), user.fullName, user.avatar);
   document.getElementById("header-avatar").alt = user.fullName || "";
 
   var themeBtn = document.getElementById("theme-toggle");

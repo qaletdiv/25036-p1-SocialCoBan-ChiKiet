@@ -192,7 +192,7 @@
   });
 
   document.getElementById("header-username").textContent = user.fullName || "Admin";
-  document.getElementById("header-avatar").src = user.avatar || "";
+  KircleRouter.setAvatar(document.getElementById("header-avatar"), user.fullName, user.avatar);
   document.getElementById("header-avatar").alt = user.fullName || "";
 
   var themeBtn = document.getElementById("theme-toggle");

@@ -1,5 +1,9 @@
 (function () {
-  KircleAuth.redirectIfLoggedIn("../../");
+  var _existing = KircleAuth.getCurrentUser();
+  if (_existing) {
+    window.location.href = "../../" + KircleRouter.getRedirectForRole(_existing.role);
+    return;
+  }
   var form = document.getElementById("login-form");
   var errEl = document.getElementById("login-error");
   form.addEventListener("submit", function (e) {

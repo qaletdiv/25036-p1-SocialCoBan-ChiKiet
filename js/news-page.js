@@ -2,6 +2,11 @@
   var user = KircleAuth.requireAuth("auth/login.html");
   if (!user) return;
 
+  if (user.role === "admin") {
+    window.location.href = "admin-users.html";
+    return;
+  }
+
   var openComments = {};
   var CONTENT_LIMIT = 200;
 
@@ -404,6 +409,7 @@
                 KircleMockPosts.remove(id);
                 delete openComments[id];
                 renderFeed();
+                if (typeof KircleRouter !== "undefined") KircleRouter.showToast("Đã xóa bài viết thành công.");
               },
             });
           });
@@ -425,6 +431,7 @@
               showReportModal(id, function (reason) {
                 KircleMockReports.add({ postId: id, reportedBy: user.id, reason: reason });
                 renderFeed();
+                if (typeof KircleRouter !== "undefined") KircleRouter.showToast("Đã gửi báo cáo thành công.");
               });
             });
           }
@@ -478,9 +485,9 @@
   }
 
   document.getElementById("header-username").textContent = user.fullName || "User";
-  document.getElementById("composer-avatar").src = user.avatar || "";
+  KircleRouter.setAvatar(document.getElementById("composer-avatar"), user.fullName, user.avatar);
   document.getElementById("composer-avatar").alt = user.fullName || "";
-  document.getElementById("header-avatar").src = user.avatar || "";
+  KircleRouter.setAvatar(document.getElementById("header-avatar"), user.fullName, user.avatar);
   document.getElementById("header-avatar").alt = user.fullName || "";
 
   var themeBtn = document.getElementById("theme-toggle");

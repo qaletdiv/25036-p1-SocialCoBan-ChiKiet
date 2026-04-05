@@ -108,7 +108,6 @@
     var infoEl = document.getElementById("profile-info");
     infoEl.innerHTML =
       '<h1 class="kircle-profile-fullname">' + escHtml(name) + '</h1>' +
-      '<p class="kircle-profile-username">@' + escHtml(profileUser.username || profileUser.id) + '</p>' +
       (bio
         ? '<p class="kircle-profile-bio">' + escHtml(bio) + '</p>'
         : '<p class="kircle-profile-bio kircle-profile-bio-empty">Chưa có tiểu sử.</p>');
@@ -483,6 +482,7 @@
                 delete openComments[id];
                 renderPosts();
                 renderProfileHero();
+                if (typeof KircleRouter !== 'undefined') KircleRouter.showToast('Đã xóa bài viết thành công.');
               },
             });
           });
@@ -503,6 +503,7 @@
               closePostMenu();
               showReportModal(id, function (reason) {
                 KircleMockReports.add({ postId: id, reportedBy: currentUser.id, reason: reason });
+                if (typeof KircleRouter !== 'undefined') KircleRouter.showToast('Đã gửi báo cáo thành công.');
               });
             });
           }
@@ -693,7 +694,7 @@
       KircleAuth.setUser(updated);
       currentUser = KircleAuth.getCurrentUser();
       document.getElementById('header-username').textContent = currentUser.fullName || 'User';
-      document.getElementById('header-avatar').src = currentUser.avatar || '';
+      KircleRouter.setAvatar(document.getElementById('header-avatar'), currentUser.fullName, currentUser.avatar);
       document.getElementById('header-avatar').alt = currentUser.fullName || '';
     }
 
@@ -708,7 +709,7 @@
   });
 
   document.getElementById('header-username').textContent = currentUser.fullName || 'User';
-  document.getElementById('header-avatar').src = currentUser.avatar || '';
+  KircleRouter.setAvatar(document.getElementById('header-avatar'), currentUser.fullName, currentUser.avatar);
   document.getElementById('header-avatar').alt = currentUser.fullName || '';
 
   var themeBtn = document.getElementById('theme-toggle');
