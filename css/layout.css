@@ -133,7 +133,6 @@
   background: var(--surface-2);
 }
 
-/* Placeholder chữ viết tắt kế bên header avatar (được chèn bởi setAvatar) */
 .kircle-header-avatar + [data-avatar-ph] {
   width: 36px;
   height: 36px;
@@ -321,7 +320,6 @@
 }
 
 @media (min-width: 769px) {
-  /* Admin: full width, loại bỏ margin 2 bên và giới hạn container để bảng có đủ chỗ */
   .kircle-app:has([data-admin-nav]) .kircle-main-wrap {
     width: 100%;
     max-width: none;
@@ -538,7 +536,6 @@
   }
 }
 
-/* ── Footer ── */
 .kircle-footer {
   border-top: 1px solid var(--border);
   background: var(--surface);

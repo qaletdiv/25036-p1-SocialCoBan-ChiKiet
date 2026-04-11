@@ -13,7 +13,6 @@ const KircleRouter = (function () {
     return Object.fromEntries(new URLSearchParams(window.location.search));
   }
 
-  // Gán href logo theo role và xử lý click logo trên mọi trang có header
   function initLogoNav() {
     var logoLink = document.querySelector(".kircle-header-logo");
     if (!logoLink || typeof KircleAuth === "undefined") return;
@@ -34,7 +33,6 @@ const KircleRouter = (function () {
     });
   }
 
-  // Chặn admin truy cập trang dành cho user thường; chuyển về admin-users.html
   function guardUserOnlyPage() {
     if (typeof KircleAuth === "undefined") return;
     var u = KircleAuth.getCurrentUser();
@@ -43,7 +41,6 @@ const KircleRouter = (function () {
     }
   }
 
-  // Lấy chữ viết tắt từ tên đầy đủ
   function getInitials(name) {
     if (!name) return "?";
     var parts = name.trim().split(/\s+/);
@@ -51,21 +48,17 @@ const KircleRouter = (function () {
     return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
   }
 
-  // Gán avatar cho thẻ <img>: nếu không có URL thì hiện <span> placeholder
-  // dùng đúng CSS class của hệ thống (primary-soft bg + primary color)
   function setAvatar(imgEl, name, avatarUrl) {
     if (!imgEl) return;
     var initials = getInitials(name);
     var size = parseInt(imgEl.getAttribute("width")) || 40;
 
-    // Tạo placeholder span kế bên img (nếu chưa có)
     var ph = imgEl.nextElementSibling;
     if (!ph || !ph.hasAttribute("data-avatar-ph")) {
       ph = document.createElement("span");
       ph.setAttribute("data-avatar-ph", "1");
       ph.className = "kircle-post-avatar-placeholder";
       ph.setAttribute("aria-hidden", "true");
-      // Ghi đè kích thước nếu khác 40px mặc định của class
       if (size !== 40) {
         ph.style.width = size + "px";
         ph.style.height = size + "px";
@@ -96,7 +89,6 @@ const KircleRouter = (function () {
     }
   }
 
-  // Hiển thị thông báo toast (dùng chung toàn app)
   function showToast(msg, isError) {
     var old = document.getElementById("kircle-global-toast");
     if (old) old.remove();

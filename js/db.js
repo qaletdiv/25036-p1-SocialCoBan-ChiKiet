@@ -178,7 +178,6 @@ const KircleDB = (function () {
   function init() {
     var seeded = localStorage.getItem(KEYS.seeded);
     if (seeded === SEED_VERSION) return;
-    // Seed version thay đổi → reset toàn bộ dữ liệu gốc
     _write(KEYS.users, SEED_USERS);
     _write(KEYS.posts, SEED_POSTS);
     _write(KEYS.notifications, SEED_NOTIFICATIONS);

@@ -378,6 +378,19 @@
   gap: 0.6rem;
 }
 
+.kircle-comment-avatar-link {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-top: 2px;
+  border-radius: 50%;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.kircle-comment-avatar-link:hover {
+  opacity: 0.85;
+}
+
 .kircle-comment-avatar {
   width: 30px;
   height: 30px;
@@ -385,7 +398,16 @@
   object-fit: cover;
   background: var(--surface-3);
   flex-shrink: 0;
-  margin-top: 2px;
+}
+
+.kircle-comment-author-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.kircle-comment-author-link:hover .kircle-comment-author {
+  color: var(--primary, #2563eb);
+  text-decoration: underline;
 }
 
 .kircle-comment-body {

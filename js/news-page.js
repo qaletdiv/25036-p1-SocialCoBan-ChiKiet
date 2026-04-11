@@ -131,11 +131,14 @@
     var name = cAuthor ? (cAuthor.fullName || cAuthor.username || "User") : "User";
     var avatar = cAuthor ? (cAuthor.avatar || "") : "";
     var isOwn = c.authorId === user.id;
+    var profileUrl = isOwn
+      ? "profile.html"
+      : (cAuthor && cAuthor.username ? "profile.html?user=" + encodeURIComponent(cAuthor.username) : "profile.html");
     return (
       '<div class="kircle-comment" data-comment-id="' + c.id + '">' +
-      buildCommentAvatarHtml(name, avatar) +
+      '<a href="' + profileUrl + '" class="kircle-comment-avatar-link">' + buildCommentAvatarHtml(name, avatar) + '</a>' +
       '<div class="kircle-comment-body">' +
-      '<span class="kircle-comment-author">' + escHtml(name) + "</span>" +
+      '<a href="' + profileUrl + '" class="kircle-comment-author-link"><span class="kircle-comment-author">' + escHtml(name) + "</span></a>" +
       '<p class="kircle-comment-content">' + escHtml(c.content) + "</p>" +
       '<span class="kircle-comment-meta">' + formatDate(c.createdAt) + "</span>" +
       "</div>" +

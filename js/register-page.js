@@ -64,9 +64,7 @@
     });
 
     if (user) {
-      KircleAuth.setUser(user);
-      var url = "../../" + KircleRouter.getRedirectForRole(user.role);
-      window.location.href = url;
+      window.location.href = "../../pages/auth/login.html";
     } else {
       showError("Email đã được sử dụng.");
     }
